@@ -3,14 +3,15 @@ import { useParams, Link } from 'react-router-dom';
 import properties from '../data/properties.json';
 import FavouriteButton from '../components/favourites/FavouriteButton.jsx';
 import ImageGallery from '../components/property/ImageGallery.jsx';
+import PropertyTabs from '../components/property/PropertyTabs.jsx';
 import { formatPrice, formatDate, formatBedrooms } from '../utils/format.js';
 import NotFound from './NotFound.jsx';
 import './pages.css';
 
 /**
  * Individual property page.
- * The react-tabs panel (long description, floor plan, map) replaces the
- * placeholder below in the next commit.
+ * Header, gallery, and the three required tab panels: long description,
+ * floor plan and Google Map.
  */
 function PropertyPage() {
   const { id } = useParams();
@@ -48,8 +49,7 @@ function PropertyPage() {
         alt={`${property.type} at ${property.location}`}
       />
 
-      {/* Tabs placeholder — replaced in Commit 15 */}
-      <p className="page__body">{property.shortDescription}</p>
+      <PropertyTabs property={property} />
     </div>
   );
 }

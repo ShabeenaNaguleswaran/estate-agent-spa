@@ -1,0 +1,31 @@
+.map {
+  /* aspect-ratio reserves the space before the iframe loads, so the tab
+     panel does not jump in height as the map arrives. */
+  aspect-ratio: 16 / 9;
+  border: var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--canvas);
+}
+
+.map__frame {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.map__unavailable {
+  padding: var(--space-6);
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--slate);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+}
+
+@media (max-width: 1024px) {
+  .map {
+    aspect-ratio: 4 / 3;
+  }
+}
