@@ -1,0 +1,78 @@
+/**
+ * Design tokens — the single source of truth for the visual system.
+ * Concept: "the surveyor's spec sheet". Property data is treated like
+ * survey data — measured, tabular, precise. Structural type is a grotesque
+ * (Archivo); every NUMBER is monospaced (IBM Plex Mono).
+ */
+
+:root {
+  /* ---- Colour ------------------------------------------------------- */
+  --ink: #101c26; /* headings, body text                           */
+  --slate: #5d6b75; /* secondary text, meta labels                   */
+  --canvas: #eceeea; /* page background — cool putty                  */
+  --surface: #ffffff; /* cards, panels                                 */
+  --line: #d2d7d1; /* hairline borders                              */
+  --signal: #2e6b4f; /* primary actions, active/focus states          */
+  --flag: #b23a32; /* favourites ONLY — nothing else may use this   */
+
+  /* Tints — derived, never invented */
+  --signal-wash: #e7efea;
+  --flag-wash: #f6e9e8;
+
+  /* ---- Type --------------------------------------------------------- */
+  --font-ui: "Archivo", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Type scale — 1.25 ratio, rounded to whole px */
+  --text-xs: 0.75rem; /* 12px — meta, labels                        */
+  --text-sm: 0.875rem; /* 14px — secondary body                      */
+  --text-base: 1rem; /* 16px — body                                */
+  --text-lg: 1.25rem; /* 20px — card titles                         */
+  --text-xl: 1.5rem; /* 24px — section headings                    */
+  --text-2xl: 2rem; /* 32px — page heading                        */
+  --text-3xl: 2.5rem; /* 40px — hero                                */
+
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-bold: 600;
+
+  /* Uppercase micro-labels ("PRICE", "3 BED") get tracked-out letters */
+  --track-label: 0.08em;
+
+  /* ---- Space — 4px base grid ---------------------------------------- */
+  --space-1: 0.25rem; /*  4px */
+  --space-2: 0.5rem; /*  8px */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem; /* 16px */
+  --space-5: 1.5rem; /* 24px */
+  --space-6: 2rem; /* 32px */
+  --space-7: 3rem; /* 48px */
+  --space-8: 4rem; /* 64px */
+
+  /* ---- Form ---------------------------------------------------------- */
+  --radius: 2px; /* near-square. Rounded pills read generic. */
+  --border: 1px solid var(--line);
+  --border-strong: 1px solid var(--ink);
+
+  /* Borders, not shadows. One shadow exists, used only on lift. */
+  --lift: 0 2px 12px rgba(16, 28, 38, 0.08);
+
+  /* ---- Motion -------------------------------------------------------- */
+  --ease: cubic-bezier(0.2, 0, 0.2, 1);
+  --fast: 120ms;
+  --base: 180ms;
+
+  /* ---- Layout -------------------------------------------------------- */
+  --max-width: 1400px;
+  --rail-width: 300px; /* the shortlist rail — the signature element */
+  --header-height: 68px;
+}
+
+/**
+ * Single breakpoint, as required by the brief: two layouts, splitting
+ * below iPad landscape width (1024px). Declared here as a comment because
+ * CSS custom properties cannot be used inside @media queries — every
+ * media query in this project uses this exact value.
+ *
+ *   @media (max-width: 1024px) { ... }
+ */

@@ -1,122 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import Header from './components/layout/Header.jsx';
+import Footer from './components/layout/Footer.jsx';
 
+/**
+ * Application shell.
+ * Routing is added in the next commit — for now this renders the layout
+ * frame and a token specimen so the design system can be verified visually.
+ */
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      <Header />
 
-      <div className="ticks"></div>
+      <main className="container" style={{ paddingBlock: 'var(--space-7)' }}>
+        <p className="label">Design system</p>
+        <h1 style={{ marginBottom: 'var(--space-5)' }}>Type and colour specimen</h1>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        <p style={{ maxWidth: '60ch', color: 'var(--slate)' }}>
+          Structural type is set in Archivo. Every number in the application —
+          price, bedrooms, postcode, date — is set in IBM Plex Mono with tabular
+          figures, so that lists of properties align like a survey record.
+        </p>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+        <div style={{ display: 'flex', gap: 'var(--space-6)', marginTop: 'var(--space-6)' }}>
+          <div>
+            <p className="label">Price</p>
+            <p className="data" style={{ fontSize: 'var(--text-xl)' }}>£750,000</p>
+          </div>
+          <div>
+            <p className="label">Bedrooms</p>
+            <p className="data" style={{ fontSize: 'var(--text-xl)' }}>3</p>
+          </div>
+          <div>
+            <p className="label">Postcode</p>
+            <p className="data" style={{ fontSize: 'var(--text-xl)' }}>BR1 3PL</p>
+          </div>
+          <div>
+            <p className="label">Added</p>
+            <p className="data" style={{ fontSize: 'var(--text-xl)' }}>12 SEP 2025</p>
+          </div>
+        </div>
+      </main>
+
+      <Footer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

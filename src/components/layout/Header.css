@@ -1,0 +1,68 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  height: var(--header-height);
+  background: var(--surface);
+  border-bottom: var(--border);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.header__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* Wordmark: tracked-out, heavy, uppercase. The one place we go loud. */
+.header__mark {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.14em;
+  color: var(--ink);
+}
+
+/* Hairline divider between the mark and the eyebrow */
+.header__rule {
+  width: 1px;
+  height: 18px;
+  background: var(--line);
+}
+
+.header__eyebrow {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--track-label);
+  color: var(--slate);
+}
+
+.header__nav {
+  display: flex;
+  gap: var(--space-5);
+}
+
+.header__link {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  padding-block: var(--space-2);
+  border-bottom: 2px solid transparent;
+  transition: border-color var(--fast) var(--ease);
+}
+
+.header__link:hover {
+  border-bottom-color: var(--signal);
+}
+
+@media (max-width: 1024px) {
+  /* Below iPad landscape the eyebrow is noise — drop it, keep the mark */
+  .header__rule,
+  .header__eyebrow {
+    display: none;
+  }
+}
