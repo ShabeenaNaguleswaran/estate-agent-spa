@@ -69,10 +69,32 @@
 }
 
 /**
- * Single breakpoint, as required by the brief: two layouts, splitting
- * below iPad landscape width (1024px). Declared here as a comment because
- * CSS custom properties cannot be used inside @media queries — every
- * media query in this project uses this exact value.
+ * ---- Breakpoint ---------------------------------------------------------
  *
- *   @media (max-width: 1024px) { ... }
+ * ONE breakpoint: 1024px.
+ *
+ * The specification requires "two layouts: large screen and smaller than
+ * iPad landscape width". iPad landscape is 1024px, so that is the switch —
+ * the number comes from the brief, not from a framework's default scale.
+ *
+ * Everything above 1024px is the desktop layout: two columns, shortlist rail
+ * docked to the right, multi-column results grid.
+ *
+ * Everything at or below 1024px is the compact layout: single column,
+ * shortlist rail moved above the results, thumbnails horizontal.
+ *
+ * Between those two states the layout FLUIDLY adapts without further
+ * breakpoints, because the grids use auto-fill/minmax and the type uses
+ * relative units. Adding breakpoints at 768px and 480px would be treating
+ * symptoms — a layout that needs a breakpoint every 300px is a layout that
+ * is not actually fluid.
+ *
+ * CSS custom properties cannot be used inside a @media query condition, so
+ * the value 1024px is repeated literally in each media query. It appears in:
+ *
+ *   global.css, Header.css, Footer.css, SearchForm.css, PropertyCard.css,
+ *   ResultsList.css, FavouritesRail.css, ImageGallery.css, PropertyTabs.css,
+ *   pages.css, responsive.css
+ *
+ * See docs/RESPONSIVE.md for the full justification.
  */

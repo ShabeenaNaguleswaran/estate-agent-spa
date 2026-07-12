@@ -18,6 +18,9 @@ import 'react-widgets/styles.css';
 
 import './styles/variables.css';
 import './styles/global.css';
+// Imported last: these are corrections that must win over the component
+// stylesheets they adjust.
+import './styles/responsive.css';
 
 import App from './App.jsx';
 
