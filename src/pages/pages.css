@@ -1,0 +1,109 @@
+.page {
+  padding-block: var(--space-7) var(--space-8);
+}
+
+.page--centered {
+  text-align: center;
+  padding-block: var(--space-8);
+}
+
+.page__title {
+  margin-block: var(--space-2) var(--space-4);
+}
+
+.page__back {
+  display: inline-block;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--slate);
+  margin-bottom: var(--space-5);
+  transition: color var(--fast) var(--ease);
+}
+
+.page__back:hover {
+  color: var(--signal);
+}
+
+.page__header {
+  margin-bottom: var(--space-6);
+}
+
+.page__price {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-medium);
+}
+
+.page__meta {
+  font-size: var(--text-sm);
+  color: var(--slate);
+}
+
+.page__hero {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border: var(--border);
+  border-radius: var(--radius);
+  margin-bottom: var(--space-6);
+}
+
+.page__body {
+  max-width: 65ch;
+  color: var(--slate);
+}
+
+.page__cta {
+  display: inline-block;
+  margin-top: var(--space-5);
+  padding: var(--space-3) var(--space-5);
+  background: var(--signal);
+  color: var(--surface);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  border-radius: var(--radius);
+  transition: opacity var(--fast) var(--ease);
+}
+
+.page__cta:hover {
+  opacity: 0.88;
+}
+
+/* ---- Temporary stub list (removed in Commit 9) ------------------------ */
+
+.page__stub-list {
+  list-style: none;
+  border-top: var(--border);
+}
+
+.page__stub {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  padding-block: var(--space-3);
+  border-bottom: var(--border);
+  font-size: var(--text-sm);
+}
+
+.page__stub-loc {
+  flex: 1;
+  font-weight: var(--weight-medium);
+}
+
+@media (max-width: 1024px) {
+  .page {
+    padding-block: var(--space-5) var(--space-7);
+  }
+
+  .page__hero {
+    aspect-ratio: 4 / 3;
+  }
+
+  .page__stub {
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+  }
+
+  .page__stub-loc {
+    flex-basis: 100%;
+  }
+}

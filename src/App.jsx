@@ -1,48 +1,42 @@
+import { HashRouter, Routes, Route } from 'react-router-dom';
+
 import Header from './components/layout/Header.jsx';
 import Footer from './components/layout/Footer.jsx';
+import SearchPage from './pages/SearchPage.jsx';
+import PropertyPage from './pages/PropertyPage.jsx';
+import NotFound from './pages/NotFound.jsx';
 
 /**
- * Application shell.
- * Routing is added in the next commit — for now this renders the layout
- * frame and a token specimen so the design system can be verified visually.
+ * Application shell and route table.
+ *
+ * HashRouter (not BrowserRouter) is a deliberate choice. GitHub Pages is a
+ * static host with no server-side rewrite rules, so a path like
+ * /property/prop3 would return a 404 on refresh because no such file exists.
+ * Hash-based routing keeps the entire route after the '#', which the server
+ * never sees — the deployed app therefore supports deep links and refreshes
+ * without needing a 404.html redirect hack (which would have required an
+ * inline script, weakening the Content Security Policy).
  */
 function App() {
   return (
-    <>
+    <HashRouter>
       <Header />
 
-      <main className="container" style={{ paddingBlock: 'var(--space-7)' }}>
-        <p className="label">Design system</p>
-        <h1 style={{ marginBottom: 'var(--space-5)' }}>Type and colour specimen</h1>
+      <main id="main">
+        <Routes>
+          {/* Search + results + favourites rail */}
+          <Route path="/" element={<SearchPage />} />
 
-        <p style={{ maxWidth: '60ch', color: 'var(--slate)' }}>
-          Structural type is set in Archivo. Every number in the application —
-          price, bedrooms, postcode, date — is set in IBM Plex Mono with tabular
-          figures, so that lists of properties align like a survey record.
-        </p>
+          {/* Individual property — gallery, tabs, map */}
+          <Route path="/property/:id" element={<PropertyPage />} />
 
-        <div style={{ display: 'flex', gap: 'var(--space-6)', marginTop: 'var(--space-6)' }}>
-          <div>
-            <p className="label">Price</p>
-            <p className="data" style={{ fontSize: 'var(--text-xl)' }}>£750,000</p>
-          </div>
-          <div>
-            <p className="label">Bedrooms</p>
-            <p className="data" style={{ fontSize: 'var(--text-xl)' }}>3</p>
-          </div>
-          <div>
-            <p className="label">Postcode</p>
-            <p className="data" style={{ fontSize: 'var(--text-xl)' }}>BR1 3PL</p>
-          </div>
-          <div>
-            <p className="label">Added</p>
-            <p className="data" style={{ fontSize: 'var(--text-xl)' }}>12 SEP 2025</p>
-          </div>
-        </div>
+          {/* Catch-all */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </main>
 
       <Footer />
-    </>
+    </HashRouter>
   );
 }
 
