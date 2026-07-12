@@ -1,0 +1,185 @@
+/**
+ * Property card.
+ * Borders, not shadows — a shadow appears only on hover, as the "lift".
+ * Near-square corners (2px) rather than pills.
+ */
+
+.card {
+  position: relative; /* anchor for the absolutely-positioned favourite btn */
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition:
+    transform var(--base) var(--ease),
+    border-color var(--base) var(--ease),
+    box-shadow var(--base) var(--ease);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: var(--ink);
+  box-shadow: var(--lift);
+}
+
+/* Keyboard users get the same affordance as mouse users */
+.card:focus-within {
+  border-color: var(--ink);
+  box-shadow: var(--lift);
+}
+
+.card__link {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* ---- Media ------------------------------------------------------------- */
+
+.card__media {
+  /* aspect-ratio holds the space before the image loads, so the grid does
+     not reflow as images arrive. Prevents layout shift. */
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--canvas);
+}
+
+.card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 400ms var(--ease);
+}
+
+.card:hover .card__image {
+  /* A restrained 2% zoom. Anything more reads as a stock template. */
+  transform: scale(1.02);
+}
+
+/* ---- Body -------------------------------------------------------------- */
+
+.card__body {
+  flex: 1; /* pushes the spec strip to the bottom on uneven cards */
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.card__eyebrow {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--track-label);
+  color: var(--slate);
+}
+
+.card__title {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-medium);
+  line-height: 1.3;
+}
+
+.card__price {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-medium);
+  color: var(--ink);
+}
+
+.card__description {
+  font-size: var(--text-sm);
+  color: var(--slate);
+  line-height: 1.5;
+
+  /* Clamp to two lines. Descriptions vary in length; unclamped, the cards
+     in a row would be different heights and the grid would lose its rhythm. */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ---- Spec strip — the signature element -------------------------------- */
+
+.card__spec {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: var(--border);
+  background: var(--canvas);
+}
+
+.card__spec-item {
+  padding: var(--space-3) var(--space-2);
+  text-align: center;
+  border-left: var(--border);
+}
+
+.card__spec-item:first-child {
+  border-left: none;
+}
+
+.card__spec-item dd {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--track-label);
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+/* ---- Favourite button --------------------------------------------------- */
+
+.card__favourite {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  z-index: 2; /* above the link's media area */
+
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+
+  background: var(--surface);
+  border: var(--border);
+  border-radius: var(--radius);
+  color: var(--ink);
+
+  transition:
+    color var(--fast) var(--ease),
+    border-color var(--fast) var(--ease),
+    transform var(--fast) var(--ease);
+}
+
+.card__favourite svg {
+  width: 20px;
+  height: 20px;
+}
+
+.card__favourite:hover {
+  color: var(--flag);
+  border-color: var(--flag);
+}
+
+.card__favourite:active {
+  transform: scale(0.92);
+}
+
+/* ---- Responsive --------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .card__media {
+    /* Wider crop at tablet/mobile: cards are full width, so a 4:3 image
+       would occupy an unreasonable amount of vertical space and push the
+       price below the fold. */
+    aspect-ratio: 16 / 9;
+  }
+
+  .card__spec-item {
+    padding: var(--space-2) var(--space-1);
+  }
+
+  .card__spec-item dd {
+    font-size: 11px;
+  }
+}

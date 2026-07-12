@@ -68,46 +68,6 @@
   opacity: 0.88;
 }
 
-/* ---- Temporary stub list (removed in Commit 9) ------------------------ */
-
-.page__stub-list {
-  list-style: none;
-  border-top: var(--border);
-}
-
-.page__stub {
-  display: flex;
-  align-items: center;
-  gap: var(--space-5);
-  padding-block: var(--space-3);
-  border-bottom: var(--border);
-  font-size: var(--text-sm);
-}
-
-.page__stub-loc {
-  flex: 1;
-  font-weight: var(--weight-medium);
-}
-
-@media (max-width: 1024px) {
-  .page {
-    padding-block: var(--space-5) var(--space-7);
-  }
-
-  .page__hero {
-    aspect-ratio: 4 / 3;
-  }
-
-  .page__stub {
-    flex-wrap: wrap;
-    gap: var(--space-2) var(--space-4);
-  }
-
-  .page__stub-loc {
-    flex-basis: 100%;
-  }
-}
-
 /* ---- Results count strip ---------------------------------------------- */
 
 .results__count {
@@ -127,17 +87,4 @@
 .results__count-context {
   font-size: var(--text-sm);
   color: var(--slate);
-}
-
-/* ---- Empty state ------------------------------------------------------- */
-
-.results__empty {
-  padding-block: var(--space-8);
-  text-align: center;
-}
-
-.results__empty-title {
-  font-size: var(--text-lg);
-  font-weight: var(--weight-medium);
-  margin-bottom: var(--space-2);
 }

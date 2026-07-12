@@ -1,0 +1,59 @@
+/**
+ * Results grid.
+ *
+ * auto-fill with a minmax track means the column count responds to the
+ * available width without a media query — which matters because the grid
+ * has to work both with the favourites rail docked beside it (Commit 13)
+ * and without it. A fixed `repeat(3, 1fr)` would break the moment the rail
+ * appears and stole 300px.
+ */
+
+.results {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-5);
+  margin-top: var(--space-5);
+}
+
+.results__item {
+  display: flex; /* lets the card stretch to the full row height */
+}
+
+.results__item > * {
+  width: 100%;
+}
+
+/* ---- Empty state -------------------------------------------------------- */
+
+.results__empty {
+  margin-top: var(--space-5);
+  padding: var(--space-8) var(--space-5);
+  text-align: center;
+  background: var(--surface);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+}
+
+.results__empty-title {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-medium);
+  margin-bottom: var(--space-2);
+}
+
+.results__empty-body {
+  font-size: var(--text-sm);
+  color: var(--slate);
+}
+
+/* ---- Responsive ---------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .results {
+    /* Single column below iPad landscape. A two-up grid at tablet width
+       squeezes the spec strip until the date wraps, which breaks the
+       alignment that the whole treatment depends on. */
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+}
