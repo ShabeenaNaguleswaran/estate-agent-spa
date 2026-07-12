@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 
 import properties from '../data/properties.json';
+import FavouriteButton from '../components/favourites/FavouriteButton.jsx';
 import { formatPrice, formatDate, formatBedrooms } from '../utils/format.js';
 import { assetUrl } from '../utils/assets.js';
 import NotFound from './NotFound.jsx';
@@ -14,9 +15,6 @@ import './pages.css';
 function PropertyPage() {
   const { id } = useParams();
 
-  // Look up the property by the :id route param. If someone hand-edits the
-  // URL to a non-existent id, fall through to the 404 view rather than
-  // crashing on `property.price` of undefined.
   const property = properties.find((p) => p.id === id);
 
   if (!property) {
@@ -27,14 +25,27 @@ function PropertyPage() {
     <div className="container page">
       <Link to="/" className="page__back">← Back to search</Link>
 
-      <header className="page__header">
-        <p className="label">{property.type} · {property.postcode}</p>
-        <h1 className="page__title">{property.location}</h1>
-        <p className="page__price data">{formatPrice(property.price)}</p>
-        <p className="page__meta">
-          {formatBedrooms(property.bedrooms)} · {property.tenure} · Added{' '}
-          <span className="data">{formatDate(property.dateAdded)}</span>
-        </p>
+      <header className="page__header page__header--property">
+        <div>
+          <p className="label">{property.type} · {property.postcode}</p>
+          <h1 className="page__title">{property.location}</h1>
+          <p className="page__price data">{formatPrice(property.price)}</p>
+          <p className="page__meta">
+            {formatBedrooms(property.bedrooms)} · {property.tenure} · Added{' '}
+            <span className="data">{formatDate(property.dateAdded)}</span>
+          </p>
+        </div>
+
+        {/*
+          The same FavouriteButton component as the result cards, in its large
+          variant. One implementation, two mount points — so there is exactly
+          one code path by which a property can be added to the shortlist.
+        */}
+        <FavouriteButton
+          propertyId={property.id}
+          label={property.location}
+          size="lg"
+        />
       </header>
 
       {/* Gallery placeholder — replaced in Commit 14 */}

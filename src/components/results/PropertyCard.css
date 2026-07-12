@@ -127,28 +127,19 @@
   white-space: nowrap;
 }
 
-/* ---- Favourite button --------------------------------------------------- */
+/* ---- Favourite button ---------------------------------------------------- */
 
+/*
+  The card owns only the POSITION of the button. Its appearance lives in
+  FavouriteButton.css, because the same button also renders on the property
+  page at a different size. Splitting position from appearance is what keeps
+  a single component usable in two contexts.
+*/
 .card__favourite {
   position: absolute;
   top: var(--space-3);
   right: var(--space-3);
   z-index: 2; /* above the link's media area */
-
-  display: grid;
-  place-items: center;
-  width: 38px;
-  height: 38px;
-
-  background: var(--surface);
-  border: var(--border);
-  border-radius: var(--radius);
-  color: var(--ink);
-
-  transition:
-    color var(--fast) var(--ease),
-    border-color var(--fast) var(--ease),
-    transform var(--fast) var(--ease);
 }
 
 .card__favourite svg {
@@ -182,4 +173,21 @@
   .card__spec-item dd {
     font-size: 11px;
   }
+}
+
+/*
+  When a card's property is on the shortlist, the card border picks up the
+  flag colour. This is the "can only be added once" signal made visible: the
+  user can see the property is already shortlisted before they click, rather
+  than clicking and wondering why the count did not move.
+
+  :has() lets the card react to the state of a descendant without threading
+  an `isFavourite` prop down into it — the button already knows.
+*/
+.card:has(.fav--active) {
+  border-color: var(--flag);
+}
+
+.card:has(.fav--active):hover {
+  border-color: var(--flag);
 }

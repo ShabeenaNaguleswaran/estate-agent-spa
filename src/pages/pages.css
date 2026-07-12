@@ -28,6 +28,28 @@
   margin-bottom: var(--space-6);
 }
 
+/*
+  Property page header: details on the left, shortlist action on the right.
+  align-items: start keeps the button aligned to the top of the block rather
+  than centring against a four-line address.
+*/
+.page__header--property {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: var(--space-5);
+}
+
+@media (max-width: 1024px) {
+  .page__header--property {
+    /* Stack below iPad landscape, with the action last: the user should read
+       what the property is before being asked to shortlist it. */
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-4);
+  }
+}
+
 .page__price {
   font-size: var(--text-2xl);
   font-weight: var(--weight-medium);

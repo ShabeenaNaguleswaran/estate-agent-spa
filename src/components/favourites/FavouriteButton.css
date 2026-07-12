@@ -1,0 +1,112 @@
+/**
+ * Favourite button.
+ *
+ * The only place in the application where --flag (oxblood) appears. Because
+ * that colour is used for nothing else, it reads unambiguously as "this is
+ * on your shortlist" wherever it shows up — on a card, on the property page,
+ * or in the rail.
+ */
+
+.fav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+
+  background: var(--surface);
+  border: var(--border);
+  border-radius: var(--radius);
+  color: var(--slate);
+
+  transition:
+    color var(--fast) var(--ease),
+    border-color var(--fast) var(--ease),
+    background-color var(--fast) var(--ease);
+}
+
+.fav__icon {
+  width: 20px;
+  height: 20px;
+  /* Only the fill and the transform animate. Both are compositor-friendly
+     properties, so the toggle stays smooth. */
+  transition: fill var(--fast) var(--ease);
+}
+
+/* ---- Hover: preview the state you are about to enter -------------------- */
+
+.fav:hover {
+  color: var(--flag);
+  border-color: var(--flag);
+}
+
+/* ---- Active: on the shortlist -------------------------------------------- */
+
+.fav--active {
+  color: var(--flag);
+  border-color: var(--flag);
+  background: var(--flag-wash);
+}
+
+/*
+  The bounce. Fires once when the button enters the active state, giving the
+  click a physical acknowledgement. Deliberately small (8%) and short (200ms)
+  — a large or slow bounce is the single clearest tell of a template.
+*/
+.fav--active .fav__icon {
+  animation: fav-pop 200ms var(--ease);
+}
+
+@keyframes fav-pop {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.18);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Users who have asked their OS for reduced motion get the state change
+   without the bounce. The information is in the fill, not the movement. */
+@media (prefers-reduced-motion: reduce) {
+  .fav--active .fav__icon {
+    animation: none;
+  }
+}
+
+.fav:active {
+  transform: scale(0.94);
+}
+
+/* ---- Size: small — on result cards --------------------------------------- */
+
+.fav--sm {
+  width: 38px;
+  height: 38px;
+  /* Icon only. A text label here would compete with the price, which is the
+     thing the card most wants the user to read. */
+}
+
+/* ---- Size: large — on the property page ---------------------------------- */
+
+.fav--lg {
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+}
+
+.fav__text {
+  /* Not monospace: this is prose, not data. */
+  font-family: var(--font-ui);
+}
+
+@media (max-width: 1024px) {
+  .fav--lg {
+    width: 100%;
+    justify-content: center;
+    padding-block: var(--space-4);
+  }
+}
