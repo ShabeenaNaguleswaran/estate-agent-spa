@@ -110,3 +110,34 @@
   font-size: var(--text-sm);
   color: var(--slate);
 }
+
+/* ---- Search layout: results + shortlist rail ------------------------------ */
+
+/*
+  Two columns on large screens: the results take the remaining space, the rail
+  is a fixed 300px. `minmax(0, 1fr)` rather than plain `1fr` — a grid track
+  defaults to min-content sizing, which would let a long property title push
+  the results column wider than its share and squeeze the rail.
+*/
+.search-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--rail-width);
+  gap: var(--space-6);
+  margin-top: var(--space-6);
+}
+
+@media (max-width: 1024px) {
+  /*
+    Below iPad landscape, one column — and the rail moves ABOVE the results.
+    The specification requires the favourites list to be visible on the search
+    page; below a fold of property cards, on a phone, it effectively is not.
+  */
+  .search-layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+
+  .search-layout > .rail {
+    order: -1;
+  }
+}

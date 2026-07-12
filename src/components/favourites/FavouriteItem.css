@@ -1,0 +1,106 @@
+.favitem {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  background: var(--surface);
+  border: var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+
+  /* The grab cursor is the only affordance telling the user this row can be
+     dragged out. Without it, drag-to-remove is undiscoverable. */
+  cursor: grab;
+
+  transition:
+    border-color var(--fast) var(--ease),
+    opacity var(--fast) var(--ease);
+}
+
+.favitem:hover {
+  border-color: var(--ink);
+}
+
+.favitem:active {
+  cursor: grabbing;
+}
+
+/*
+  While this row is being dragged out of the rail, fade it. The user is
+  removing it, so showing it at full strength contradicts the gesture.
+*/
+.favitem:has(:global(.dragging)),
+.favitem.is-dragging {
+  opacity: 0.4;
+}
+
+.favitem__link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex: 1;
+  min-width: 0; /* allows the text below to truncate rather than overflow */
+  padding: var(--space-2);
+}
+
+.favitem__image {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  flex-shrink: 0;
+  background: var(--canvas);
+}
+
+.favitem__body {
+  min-width: 0; /* required for text-overflow to work inside a flex child */
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.favitem__title {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  /* The rail is narrow; long addresses must truncate, not wrap to three
+     lines and blow the row height out. */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.favitem__price {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+}
+
+.favitem__spec {
+  font-size: var(--text-xs);
+  letter-spacing: var(--track-label);
+  color: var(--slate);
+}
+
+/* ---- Remove button ------------------------------------------------------- */
+
+.favitem__remove {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  flex-shrink: 0;
+
+  color: var(--slate);
+  border-left: var(--border);
+
+  transition:
+    color var(--fast) var(--ease),
+    background-color var(--fast) var(--ease);
+}
+
+.favitem__remove svg {
+  width: 16px;
+  height: 16px;
+}
+
+.favitem__remove:hover {
+  color: var(--flag);
+  background: var(--flag-wash);
+}

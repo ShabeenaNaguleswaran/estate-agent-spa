@@ -191,3 +191,26 @@
 .card:has(.fav--active):hover {
   border-color: var(--flag);
 }
+
+/* ---- Dragging ------------------------------------------------------------- */
+
+.card {
+  /* Signals the card can be picked up. Paired with aria-roledescription so
+     the affordance exists for keyboard and screen reader users too. */
+  cursor: grab;
+}
+
+.card:active {
+  cursor: grabbing;
+}
+
+/*
+  While being dragged, the card fades. The browser renders its own drag
+  ghost at full opacity, so fading the original makes the two distinguishable
+  and reinforces that the card is "in flight".
+*/
+.card--dragging {
+  opacity: 0.4;
+  /* Suppress the hover lift mid-drag — the two transforms fight. */
+  transform: none;
+}
