@@ -2,15 +2,15 @@ import { useParams, Link } from 'react-router-dom';
 
 import properties from '../data/properties.json';
 import FavouriteButton from '../components/favourites/FavouriteButton.jsx';
+import ImageGallery from '../components/property/ImageGallery.jsx';
 import { formatPrice, formatDate, formatBedrooms } from '../utils/format.js';
-import { assetUrl } from '../utils/assets.js';
 import NotFound from './NotFound.jsx';
 import './pages.css';
 
 /**
  * Individual property page.
- * The gallery (Commit 14) and react-tabs panel (Commit 15) replace the
- * placeholder blocks below.
+ * The react-tabs panel (long description, floor plan, map) replaces the
+ * placeholder below in the next commit.
  */
 function PropertyPage() {
   const { id } = useParams();
@@ -36,11 +36,6 @@ function PropertyPage() {
           </p>
         </div>
 
-        {/*
-          The same FavouriteButton component as the result cards, in its large
-          variant. One implementation, two mount points — so there is exactly
-          one code path by which a property can be added to the shortlist.
-        */}
         <FavouriteButton
           propertyId={property.id}
           label={property.location}
@@ -48,10 +43,8 @@ function PropertyPage() {
         />
       </header>
 
-      {/* Gallery placeholder — replaced in Commit 14 */}
-      <img
-        className="page__hero"
-        src={assetUrl(property.mainImage)}
+      <ImageGallery
+        images={property.images}
         alt={`${property.type} at ${property.location}`}
       />
 

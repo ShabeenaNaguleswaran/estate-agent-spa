@@ -60,15 +60,6 @@
   color: var(--slate);
 }
 
-.page__hero {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  border: var(--border);
-  border-radius: var(--radius);
-  margin-bottom: var(--space-6);
-}
-
 .page__body {
   max-width: 65ch;
   color: var(--slate);
