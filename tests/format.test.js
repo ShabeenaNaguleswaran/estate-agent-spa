@@ -1,4 +1,9 @@
-import { formatPrice, formatDate, formatBedrooms } from '../src/utils/format.js';
+import {
+  formatPrice,
+  formatPriceCompact,
+  formatDate,
+  formatBedrooms,
+} from '../src/utils/format.js';
 
 describe('formatters', () => {
   describe('formatPrice', () => {
@@ -98,6 +103,29 @@ describe('formatters', () => {
     it('returns a dash for a missing or non-numeric count', () => {
       expect(formatBedrooms(undefined)).toBe('—');
       expect(formatBedrooms(NaN)).toBe('—');
+    });
+  });
+
+  describe('formatPriceCompact', () => {
+    it('abbreviates thousands', () => {
+      expect(formatPriceCompact(285000)).toBe('285K');
+      expect(formatPriceCompact(750000)).toBe('750K');
+    });
+
+    it('abbreviates millions to two decimal places', () => {
+      expect(formatPriceCompact(1250000)).toBe('1.25M');
+    });
+
+    it('strips trailing zeros rather than padding them', () => {
+      // "1M", not "1.00M" — the hero strip is tight and the zeros carry
+      // no information.
+      expect(formatPriceCompact(1000000)).toBe('1M');
+      expect(formatPriceCompact(1500000)).toBe('1.5M');
+    });
+
+    it('returns a dash for a missing or non-numeric price', () => {
+      expect(formatPriceCompact(undefined)).toBe('—');
+      expect(formatPriceCompact(NaN)).toBe('—');
     });
   });
 });

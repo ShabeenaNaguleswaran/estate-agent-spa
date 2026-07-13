@@ -97,3 +97,33 @@ export function formatBedrooms(count) {
   if (typeof count !== 'number' || Number.isNaN(count)) return '—';
   return `${count} ${count === 1 ? 'bedroom' : 'bedrooms'}`;
 }
+
+/**
+ * Formats a price in compact form for the market summary.
+ * 285000 -> "285K" ; 1250000 -> "1.25M"
+ *
+ * Hand-rolled rather than using Intl's `notation: 'compact'`, for the same
+ * reason formatDate owns its month table: Intl's compact notation rounds
+ * aggressively and inconsistently across ICU builds — 1250000 renders as "1.3M"
+ * in some, "1.25M" in others. The hero's price range is a factual statement
+ * about the dataset, so it should not silently change value depending on which
+ * Node built the bundle.
+ *
+ * @param {number} price
+ * @returns {string} e.g. "285K", "1.25M"
+ */
+export function formatPriceCompact(price) {
+  if (typeof price !== 'number' || Number.isNaN(price)) return '—';
+
+  if (price >= 1_000_000) {
+    // Two decimal places, trailing zeros stripped: 1.25M, not 1.25M / 1.00M
+    const millions = (price / 1_000_000).toFixed(2).replace(/\.?0+$/, '');
+    return `${millions}M`;
+  }
+
+  if (price >= 1_000) {
+    return `${Math.round(price / 1_000)}K`;
+  }
+
+  return String(price);
+}
