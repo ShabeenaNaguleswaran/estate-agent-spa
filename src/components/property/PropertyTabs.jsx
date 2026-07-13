@@ -38,10 +38,15 @@ function PropertyTabs({ property }) {
       {/* -- Long description ---------------------------------------------- */}
       <TabPanel className="tabs__panel" selectedClassName="tabs__panel--selected">
         {/*
-          Rendered as a JSX expression, NOT via dangerouslySetInnerHTML.
-          React escapes the string, so any HTML or script in the property data
-          is rendered as literal text rather than executed. This is the JSX
-          encoding half of the security criterion — see SECURITY.md.
+          Rendered as escaped JSX children. React escapes every value
+          interpolated into JSX, so a description containing markup renders as
+          literal text rather than executing.
+
+          dangerouslySetInnerHTML is the one construct that would forfeit that
+          guarantee, and it is used nowhere in this codebase — enforced by
+          tests/security.test.js, which walks every source file and fails if it
+          appears. Splitting on newlines and mapping to <p> elements achieves
+          the same paragraph rendering with the escaping intact.
         */}
         <div className="tabs__prose">
           {longDescription.split('\n').map((paragraph, index) => (
@@ -65,8 +70,8 @@ function PropertyTabs({ property }) {
         <PropertyMap coordinates={coordinates} location={location} />
 
         <p className="tabs__note">
-          The pin shows the approximate position of the property. Exact
-          details are provided on viewing.
+          The pin shows the approximate position of the property. Exact details
+          are provided on viewing.
         </p>
       </TabPanel>
     </Tabs>

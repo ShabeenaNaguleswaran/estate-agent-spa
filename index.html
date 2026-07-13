@@ -1,17 +1,49 @@
 <!doctype html>
 <html lang="en-GB">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Meridian — search houses and flats by type, price, bedrooms, date added and postcode area."
-    />
-    <title>Meridian · Property Search</title>
-    <!-- Content Security Policy is added in a later commit (see SECURITY.md) -->
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!--
+      Content Security Policy.
+
+      Declared as a meta tag rather than an HTTP header because the application
+      is deployed to GitHub Pages, a static host which does not permit custom
+      response headers. This is a real limitation of the deployment target, not
+      a preference: frame-ancestors, report-uri and sandbox are silently ignored
+      in a meta-tag policy, so they are deliberately omitted rather than included
+      and quietly doing nothing.
+
+      Every directive below is a deliberate exception to default-src 'self'.
+      See SECURITY.md for the reasoning behind each one.
+    -->
+  <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self';
+        style-src 'self' 'unsafe-inline';
+        img-src 'self' data:;
+        font-src 'self';
+        frame-src https://maps.google.com https://www.google.com;
+        connect-src 'self';
+        object-src 'none';
+        base-uri 'self';
+        form-action 'none';
+        upgrade-insecure-requests;
+      " />
+
+  <meta name="description"
+    content="Meridian — search houses and flats by type, price, bedrooms, date added and postcode area." />
+
+  <!-- Do not leak which page a user came from to any third party -->
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <title>Meridian · Property Search</title>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
 </html>
