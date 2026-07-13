@@ -18,6 +18,24 @@
       Every directive below is a deliberate exception to default-src 'self'.
       See SECURITY.md for the reasoning behind each one.
     -->
+
+  <!--
+      Content Security Policy — declared BOTH as an HTTP header (in vercel.json)
+      and as this meta tag.
+
+      The header is authoritative and strictly better: it applies from byte zero
+      of the document, and it supports frame-ancestors, which a meta-tag policy
+      silently ignores. This tag is a defence-in-depth fallback for the case
+      where the application is served from a static host that cannot set custom
+      headers — GitHub Pages, or a local `vite preview`. Where both are present
+      the browser enforces the INTERSECTION of the two, so the stricter of the
+      pair always wins.
+
+      Note this tag deliberately omits frame-ancestors: including a directive a
+      meta policy cannot honour would log a console warning and do nothing.
+
+      See docs/DEPLOYMENT.md and SECURITY.md.
+    -->
   <meta http-equiv="Content-Security-Policy" content="
         default-src 'self';
         script-src 'self';

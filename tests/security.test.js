@@ -179,4 +179,46 @@ describe('security', () => {
       expect(source).not.toMatch(/allow-popups/);
     });
   });
+
+  /**
+   * TEST 4 — The deployed header policy.
+   *
+   * The meta-tag CSP is a fallback. The authoritative policy is the HTTP header
+   * set in vercel.json, which applies from byte zero of the document and can
+   * carry directives a meta policy silently ignores.
+   */
+  describe('deployment headers', () => {
+    const config = JSON.parse(readSource('vercel.json'));
+
+    const headerFor = (key) =>
+      config.headers
+        .flatMap((rule) => rule.headers)
+        .find((header) => header.key === key)?.value ?? '';
+
+    it('sets a Content Security Policy header', () => {
+      const csp = headerFor('Content-Security-Policy');
+      expect(csp).toMatch(/default-src 'self'/);
+      expect(csp).toMatch(/script-src 'self'/);
+      expect(csp).not.toMatch(/script-src[^;]*unsafe-inline/);
+    });
+
+    it('denies framing via frame-ancestors', () => {
+      // The directive a meta-tag policy cannot honour, and the reason the
+      // header version is strictly better than the meta tag alone.
+      expect(headerFor('Content-Security-Policy')).toMatch(
+        /frame-ancestors 'none'/
+      );
+    });
+
+    it('disables MIME type sniffing', () => {
+      expect(headerFor('X-Content-Type-Options')).toBe('nosniff');
+    });
+
+    it('denies device permissions the application does not need', () => {
+      const permissions = headerFor('Permissions-Policy');
+      expect(permissions).toMatch(/geolocation=\(\)/);
+      expect(permissions).toMatch(/camera=\(\)/);
+      expect(permissions).toMatch(/microphone=\(\)/);
+    });
+  });
 });
